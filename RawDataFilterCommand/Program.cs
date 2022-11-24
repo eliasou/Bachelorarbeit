@@ -4,8 +4,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Vivavis.Platform.Connector.Connection;
 using Vivavis.Platform.Connector.Handling;
+using Vivavis.Platform.Connector.Handling.Interfaces.Events;
+using Vivavis.Softwareplatform.Messaging;
 
-namespace RohdatenfilterCommand
+namespace RawDataFilterCommand
 {
     public class Program
     {
@@ -30,7 +32,10 @@ namespace RohdatenfilterCommand
 
                     //Vivavis connector
                     StartUpService.AddVivavisConnectorAndHandler(services);
+
+                    services.AddTransient<IEventHandler<IEventV2>, CreatedMeasurementValueEventHandler>();
                     
+                    services.AddHostedService<CreatedMeasurementValueEventSubscriber>();
                     services.AddHostedService<CmdBackgroundService>();
                 })
                 .ConfigureAppConfiguration((hostContext, configBuilder) =>

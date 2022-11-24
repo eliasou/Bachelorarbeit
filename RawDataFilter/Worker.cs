@@ -9,7 +9,7 @@ using Vivavis.Softwareplatform.Platform;
 using Vivavis.Softwareplatform.Platform.Registry;
 
 
-namespace Rohdatenfilter
+namespace RawDataFilter
 {
     public class Worker : BackgroundService
     {
@@ -36,18 +36,6 @@ namespace Rohdatenfilter
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
             return Task.CompletedTask;
-            // _logger.LogInformation("Start application...");
-            //
-            // try
-            // {
-            //     RoadshowNotificationServiceV1 module = new RoadshowNotificationServiceV1();
-            //     await module.RegisterAsync(_context.InvokeCommandAsync, "TestLabel");
-            //     await module.ListenToCommands(_subscriber.SubscribeDurableAsync, _receiver.ReceiveCommand);
-            // }
-            // catch (Exception ex)
-            // {
-            //     _logger.LogError(ex.Message);
-            // }
         }
 
         public override Task StopAsync(CancellationToken stoppingToken)
@@ -55,16 +43,6 @@ namespace Rohdatenfilter
             _logger.LogInformation("Stop application...");
 
             return Task.Run(Stop, stoppingToken);
-
-            // try
-            // {
-            //     RoadshowNotificationServiceV1 module = new RoadshowNotificationServiceV1();
-            //     await module.UnregisterAsync(_context.InvokeCommandAsync);
-            // }
-            // catch (Exception ex)
-            // {
-            //     _logger.LogError(ex.Message);
-            // }
         }
 
         private async void Start()

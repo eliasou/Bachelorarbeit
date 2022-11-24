@@ -4,7 +4,7 @@ using Vivavis.Platform.Connector.Interfaces;
 using Vivavis.Softwareplatform.Common;
 using Vivavis.Softwareplatform.Metering;
 
-namespace RohdatenfilterCommand
+namespace RawDataFilterCommand
 {
     public class CmdBackgroundService : BackgroundService
     {
@@ -35,6 +35,7 @@ namespace RohdatenfilterCommand
 
         public void MenuItems()
         {
+            Thread.Sleep(4000);
             Console.Clear();
             Console.WriteLine("Choose an option:");
             Console.WriteLine("s) Send Command");
@@ -52,6 +53,10 @@ namespace RohdatenfilterCommand
                         break;
                     case ConsoleKey.E:
                         Exit();
+                        break;
+                    default:
+                        Console.WriteLine("\r\nIncorrect input!");
+                        MenuItems();
                         break;
                 }
             }

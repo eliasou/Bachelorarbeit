@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -11,7 +9,7 @@ using Vivavis.Softwareplatform.Messaging;
 using RawDataFilter.Handler;
 using RawDataFilter.Subscriber;
 
-namespace Rohdatenfilter
+namespace RawDataFilter
 {
     public class Program
     {
@@ -39,7 +37,7 @@ namespace Rohdatenfilter
                     StartUpService.AddVivavisConnectorAndHandler(services);
                     
                     services.AddTransient<ICommandHandler<ICommandV2, IResultV2>, ExecuteTranslationTaskHandler>();
-
+                    services.AddTransient<CreatedMeasurementValuePublisher>();
                     services.AddHostedService<Worker>();
                     services.AddHostedService<ExecuteTranslationTaskCommandSubscriber>();
                 })
