@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 
 namespace RawDataFilter
 {
-    public class CreatedMeasurementValuePublisher : BackgroundService
+    public class CreatedMeasurementValuePublisher
     {
         private readonly IMessagingContext _context;
         private readonly ILogger<Worker> _logger;
@@ -16,30 +16,26 @@ namespace RawDataFilter
             _context = context;
             _logger = logger;
         }
-
-        protected override Task ExecuteAsync(CancellationToken cancellationToken)
-        {
-            return Task.CompletedTask;
-        }
-        private async void Start()
-        {
-        }
-
-        public override Task StartAsync(CancellationToken cancellationToken)
-        {
-            _context.PublishEventAsync(new MeasurementValueCreatedV2(), cancellationToken);
-            return Task.Run(Start, cancellationToken);
-        }
         
-        public override Task StopAsync(CancellationToken stoppingToken)
+        public void Publish(string inputModel)
         {
-            _logger.LogInformation("Stop application...");
-
-            return Task.Run(Stop, stoppingToken);
+            var swpModel = Map(inputModel);
+            _context.PublishEventAsync(swpModel);
         }
-        
-        public void Stop()
+
+        private MeasurementValueCreatedV2 Map(string inputModel)
         {
+            return new MeasurementValueCreatedV2(Constants.ModuleKey)
+            {
+                DomainSpecificLogicalNames = new List<KeyValuePairV1>
+                {
+                    new KeyValuePairV1
+                    {
+                        Key = "Test",
+                        Value = inputModel
+                    }
+                }
+            };
         }
     }
 }

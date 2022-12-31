@@ -6,6 +6,6 @@ public class CreatedMeasurementValueEventHandler : MeasurementValueCreatedHandle
 {
     public override Task HandleAsync(MeasurementValueCreatedV2 myEvent)
     {
-        return Task.Run(() => Console.WriteLine(myEvent.Values.First().Value));
+        return Task.Run(() => Console.WriteLine(myEvent.DomainSpecificLogicalNames.First().Value));
     }
 }

@@ -36,7 +36,7 @@ namespace RawDataFilterCommand
         public void MenuItems()
         {
             Thread.Sleep(4000);
-            Console.Clear();
+            //Console.Clear();
             Console.WriteLine("Choose an option:");
             Console.WriteLine("s) Send Command");
             Console.WriteLine("e) Exit");

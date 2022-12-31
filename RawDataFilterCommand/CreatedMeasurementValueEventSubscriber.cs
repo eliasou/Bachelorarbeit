@@ -18,6 +18,6 @@ public class CreatedMeasurementValueEventSubscriber : BackgroundService
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
         return _subscriber.SubscribeDurableAsync(new MeasurementValueCreatedV2().EventAddress, "EventSubscriber",
-            _receiver.Receive);
+            _receiver.Receive, cancellationToken: stoppingToken);
     }
 }
